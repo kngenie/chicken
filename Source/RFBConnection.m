@@ -429,6 +429,11 @@
 	[_frameUpdateTimer invalidate];
 	[_frameUpdateTimer release];
 	_frameUpdateTimer = nil;
+	
+	// there's a slight chance of requestFrameBufferUpdate: getting called
+	// between Session object destruction and RFBConnection closure. if session
+	// is set to nil by Session dealloc, rfbView should not be accessed.
+	if (session == nil) return;
 
     [self requestUpdate:[rfbView bounds] incremental:YES];
 }
