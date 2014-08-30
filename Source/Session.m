@@ -30,7 +30,7 @@
 #import "RFBView.h"
 #import "SshWaiter.h"
 #define XK_MISCELLANY
-#include <X11/keysymdef.h>
+#include "keysymdef.h"
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED < 1050
 @interface NSAlert(AvailableInLeopard)

@@ -25,7 +25,7 @@
 #import "FrameBufferUpdateReader.h"
 #import <Carbon/Carbon.h>
 #define XK_MISCELLANY
-#include <X11/keysymdef.h>
+#include "keysymdef.h"
 
 #define INTERPRET_LOCALLY_PREFERENCE 6
 

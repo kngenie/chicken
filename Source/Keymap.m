@@ -19,7 +19,22 @@
 
 #import "Keymap.h"
 #define XK_3270
-#import "X11/keysym.h"
+#define XK_MISCELLANY
+#define XK_XKB_KEYS
+#define XK_LATIN1
+#define XK_LATIN2
+#define XK_LATIN3
+#define XK_LATIN4
+#define XK_LATIN8
+#define XK_LATIN9
+#define XK_CAUCASUS
+#define XK_GREEK
+#define XK_KATAKANA
+#define XK_ARABIC
+#define XK_CYRILLIC
+#define XK_HEBREW
+#define XK_THAI
+#import "keysymdef.h"
 
 /* Tables mapping from Unicode characters to X11 keysyms. Unicode characters
  * which have not been assigned a legacy keysym can use the Unicode value plus

@@ -42,7 +42,7 @@
 #import "Session.h"
 #import "SshTunnel.h"
 #define XK_MISCELLANY
-#include <X11/keysymdef.h>
+#include "keysymdef.h"
 #include <libc.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
