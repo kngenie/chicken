@@ -51,10 +51,7 @@
 		
 		service_ = [service retain];
 		[service_ setDelegate:self];
-		if ( [service_ respondsToSelector: @selector(resolveWithTimeout:)] )
-			[service_ resolveWithTimeout: 5.0]; // Tiger only API
-		else
-			[service_ resolve];
+        [service_ resolveWithTimeout: 5.0];
 		
         [_name release];
         _name = [[service_ name] retain];
