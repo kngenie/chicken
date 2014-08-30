@@ -884,7 +884,7 @@ enum {
     else if (trackingNumber == _bottomTrackingTag)
         _vertScrollFactor = -1;
     else
-        NSLog(@"Unknown trackingNumber %d", trackingNumber);
+        NSLog(@"Unknown trackingNumber %ld", (long)trackingNumber);
 
     if ([self connectionIsFullscreen])
         [self beginFullscreenScrolling];
