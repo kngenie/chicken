@@ -162,7 +162,13 @@ static NSString *kPrefs_LastHost_Key = @"RFBLastHost";
 		{
 			// Called from the finder.  Do nothing.
 			continue;
-		} 
+		}
+        else if ([arg isEqualToString:@"-NSDocumentRevisionsDebugMode"])
+        {
+            // Used by XCode with argument YES or NO to flag that we're being debugged
+            i++;
+            continue;
+        }
 		else if ([arg hasPrefix:@"--PasswordFile"])
 		{
 			if (i + 1 >= argCount) [self cmdlineUsage];
