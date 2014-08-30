@@ -71,7 +71,7 @@ static unsigned char pc2[48] = {
 
 void deskey(key, edf)	/* Thanks to James Gillogly & Phil Karn! */
 unsigned char *key;
-short edf;
+int edf;
 {
 	register int i, j, l, m, n;
 	unsigned char pc1m[56], pcr[56];

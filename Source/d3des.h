@@ -21,7 +21,7 @@
 #define EN0	0	/* MODE == encrypt */
 #define DE1	1	/* MODE == decrypt */
 
-extern void deskey(unsigned char *, short);
+extern void deskey(unsigned char *, int);
 /*		      hexkey[8]     MODE
  * Sets the internal key register according to the hexadecimal
  * key contained in the 8 bytes of hexkey, according to the DES,
