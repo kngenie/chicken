@@ -26,7 +26,11 @@
 @class RFBView;
 @class SshTunnel;
 
-@interface Session : NSObject <ConnectionWaiterDelegate>
+@interface Session : NSObject <
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+NSNetServiceDelegate,NSWindowDelegate,
+#endif
+ConnectionWaiterDelegate>
 {
     RFBConnection   *connection;
     IBOutlet RFBView *rfbView;

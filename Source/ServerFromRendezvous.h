@@ -25,7 +25,11 @@
 
 #define RFB_SAVED_RENDEZVOUS_SERVERS @"RFB_SAVED_RENDEZVOUS_SERVERS"
 
-@interface ServerFromRendezvous : PersistentServer {
+@interface ServerFromRendezvous : PersistentServer
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+<NSNetServiceDelegate>
+#endif
+{
 	NSNetService* service_;
 	bool bHasResolved;
 	bool bResloveSucceeded;
