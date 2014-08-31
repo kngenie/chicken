@@ -9,6 +9,13 @@
 #import "ProfileManager_private.h"
 #import "ProfileDataManager.h"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1050
+#if __LP64__
+typedef unsigned long NSUInteger;
+#else
+typedef unsigned int NSUInteger;
+#endif
+#endif
 
 @implementation ProfileManager (Private)
 
@@ -50,7 +57,7 @@
 - (void)_selectProfileNamed:(NSString*)aProfile
 {
 	NSArray *profileNames = [self _sortedProfileNames];
-	int index = [profileNames indexOfObject: aProfile];
+	NSUInteger index = [profileNames indexOfObject: aProfile];
     if (index != NSNotFound)
         [self _selectProfileAtIndex: index];
     else
@@ -64,7 +71,7 @@
     NSMutableArray* n = [[[profiles sortedKeyArray] mutableCopy] autorelease];
 	NSString *defaultProfileName = [profiles defaultProfileName];
 	
-	unsigned int idx = [n indexOfObject: defaultProfileName];
+	NSUInteger idx = [n indexOfObject: defaultProfileName];
 	NSParameterAssert( NSNotFound != idx );
 	[n removeObjectAtIndex:idx];
 	[n insertObject: defaultProfileName atIndex: 0];

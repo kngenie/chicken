@@ -23,6 +23,14 @@
 #import "Profile.h"
 //#import "RectangleList.h"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1050
+#if __LP64__
+typedef long NSInteger;
+#else
+typedef int NSInteger;
+#endif
+#endif
+
 @implementation RFBView
 
 /* One-time initializer to read the cursors into memory. */
@@ -134,8 +142,8 @@
 {
     NSRect          b = [self bounds];
     const NSRect    *rects;
-    int             numRects;
-    int             i;
+    NSInteger       numRects;
+    NSInteger       i;
 
     /* We always draw the framebuffer at scale. However, on a "Retina" display,
      * there are 4 pixels for each point. By default, the OS will interpolate

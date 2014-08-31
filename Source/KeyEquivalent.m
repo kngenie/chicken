@@ -10,6 +10,13 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1050
+#if __LP64__
+typedef unsigned long NSUInteger;
+#else
+typedef unsigned int NSUInteger;
+#endif
+#endif
 
 @implementation KeyEquivalent
 
@@ -39,7 +46,7 @@
 	return (mModifiers == anObject->mModifiers) && ([mCharacters isEqualToString: anObject->mCharacters]);
 }
 
-- (unsigned)hash
+- (NSUInteger)hash
 {
 	return [mCharacters hash] + mModifiers;
 }
