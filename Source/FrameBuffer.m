@@ -430,15 +430,15 @@ static void ns_pixel(unsigned char* v, FrameBuffer *this, float* clr)
 }
 
 /* --------------------------------------------------------------------------------- */
-- (void)fillColor:(FrameBufferColor*)fbc fromPixel:(unsigned char*)pixValue {}
-- (void)fillColor:(FrameBufferColor*)fbc fromTightPixel:(unsigned char*)pixValue {}
-- (void)fillRect:(NSRect)aRect withPixel:(unsigned char*)pixValue {}
+- (void)fillColor:(FrameBufferColor*)fbc fromPixel:(const unsigned char*)pixValue {}
+- (void)fillColor:(FrameBufferColor*)fbc fromTightPixel:(const unsigned char*)pixValue {}
+- (void)fillRect:(NSRect)aRect withPixel:(const unsigned char*)pixValue {}
 - (void)fillRect:(NSRect)aRect withFbColor:(FrameBufferColor*)fbc {}
 - (void)copyRect:(NSRect)aRect to:(NSPoint)aPoint {}
-- (void)putRect:(NSRect)aRect fromData:(unsigned char*)data {}
+- (void)putRect:(NSRect)aRect fromData:(const unsigned char*)data {}
 - (void)drawRect:(NSRect)aRect at:(NSPoint)aPoint {}
-- (void)fillRect:(NSRect)aRect tightPixel:(unsigned char*)pixValue {}
-- (void)putRect:(NSRect)aRect fromTightData:(unsigned char*)data {}
+- (void)fillRect:(NSRect)aRect tightPixel:(const unsigned char*)pixValue {}
+- (void)putRect:(NSRect)aRect fromTightData:(const unsigned char*)data {}
 - (void)putRect:(NSRect)aRect withColors:(FrameBufferPaletteIndex*)data fromPalette:(FrameBufferColor*)palette {}
 - (void)putRun:(FrameBufferColor*)fbc ofLength:(int)length at:(NSRect)aRect pixelOffset:(int)offset {}
 - (void)putRect:(NSRect)aRect fromRGBBytes:(unsigned char*)rgb {}
