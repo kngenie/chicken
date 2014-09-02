@@ -289,7 +289,7 @@
     if (window)
         NSBeginAlertSheet(theAction, ok, nil, nil, window, self,
                 @selector(errorDidEnd:returnCode:contextInfo:), NULL, NULL,
-                message);
+                @"%@", message);
     else {
         int ret;
         ret = NSRunAlertPanel(theAction, message, ok, NULL, NULL, NULL);

@@ -231,7 +231,7 @@ enum {
             NSBeginAlertSheet(NSLocalizedString(@"ConnectionTerminated", nil),
                     NSLocalizedString(@"Okay", nil), nil, nil, window, self,
                     @selector(connectionTerminatedSheetDidEnd:returnCode:contextInfo:),
-                    nil, nil, aReason);
+                    nil, nil, @"%@", aReason);
         }
     } else {
         if(aReason) {
@@ -250,7 +250,7 @@ enum {
 				NSString *header = NSLocalizedString( @"ConnectionTerminated", nil );
 				NSString *okayButton = NSLocalizedString( @"Okay", nil );
 				NSString *reconnectButton =  NSLocalizedString( @"Reconnect", nil );
-				NSBeginAlertSheet(header, okayButton, supportReconnect ? reconnectButton : nil, nil, window, self, @selector(connectionTerminatedSheetDidEnd:returnCode:contextInfo:), nil, nil, aReason);
+				NSBeginAlertSheet(header, okayButton, supportReconnect ? reconnectButton : nil, nil, window, self, @selector(connectionTerminatedSheetDidEnd:returnCode:contextInfo:), nil, nil, @"%@", aReason);
 			}
         } else {
             [[RFBConnectionManager sharedManager] removeConnection:self];
