@@ -40,8 +40,10 @@ static KeyChain* defaultKeyChain = nil;
         return TRUE;
     } else {
         const char  *pass = [password UTF8String];
+        itemref = [self _genericPasswordReferenceForService:service
+                        account:account];
 
-        if (itemref = [self _genericPasswordReferenceForService:service account:account])
+        if (itemref)
             ret = SecKeychainItemModifyContent(itemref, NULL, strlen(pass), pass);
         else {
             const char  *serv = [service UTF8String];
@@ -83,8 +85,10 @@ static KeyChain* defaultKeyChain = nil;
 
 - (void)removeGenericPasswordForService:(NSString *)service account:(NSString*)account
 {
-    SecKeychainItemRef itemref;
-    if (itemref = [self _genericPasswordReferenceForService:service account:account])
+    SecKeychainItemRef itemref; 
+
+    itemref = [self _genericPasswordReferenceForService:service account:account];
+    if (itemref)
         SecKeychainItemDelete(itemref);
 }
 
