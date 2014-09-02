@@ -27,7 +27,7 @@
 
 @implementation ServerFromRendezvous
 
-+ (id<IServerData>)createWithNetService:(NSNetService*)service
++ (ServerFromRendezvous *)createWithNetService:(NSNetService*)service
 {
 	return [[[ServerFromRendezvous alloc] initWithNetService:service] autorelease];
 }
