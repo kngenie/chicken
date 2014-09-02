@@ -10,7 +10,11 @@
 @class KeyEquivalentScenario, KeyEquivalentTextView;
 
 
-@interface KeyEquivalentPrefsController : NSObject {
+@interface KeyEquivalentPrefsController : NSObject
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+<NSWindowDelegate>
+#endif
+{
 	IBOutlet NSPopUpButton *mConnectionType;
 	IBOutlet NSOutlineView *mOutlineView;
 	NSMutableArray *mSelectedScenario;
