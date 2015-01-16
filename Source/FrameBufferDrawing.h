@@ -446,16 +446,21 @@ printf("draw x=%f y=%f w=%f h=%f at x=%f y=%f\n", aRect.origin.x, aRect.origin.y
     drawPixelCount += aRect.size.width * aRect.size.height;
 #endif
 
-    r = aRect;
+    // Round the rectangle so that it aligns with the pixels of the framebuffer.
+    r.origin.x = floor(aRect.origin.x);
+    r.origin.y = floor(aRect.origin.y);
+    r.size.width = ceil(aRect.origin.x + aRect.size.width) - r.origin.x;
+    r.size.height = ceil(aRect.origin.y + aRect.size.height) - r.origin.y;
     if(NSMaxX(r) >= size.width) {
         r.size.width = size.width - r.origin.x;
     }
     if(NSMaxY(r) >= size.height) {
         r.size.height = size.height - r.origin.y;
     }
-    start = pixels + (int)(aRect.origin.y * size.width) + (int)aRect.origin.x;
-    r.origin = aPoint;
-    if((aRect.size.width * aRect.size.height) > SCRATCHPAD_SIZE) {
+    start = pixels + ((int)r.origin.y) * (int)size.width + (int)r.origin.x;
+    r.origin.x = floor(aPoint.x);   // Also round the on-screen location to
+    r.origin.y = floor(aPoint.y);   // align with pixel boundaries
+    if((aRect.size.width * aRect.size.height) > SCRATCHPAD_SIZE || YES) {
         bpr = size.width * sizeof(FBColor);
         NSDrawBitmap(r, r.size.width, r.size.height, bitsPerColor, samplesPerPixel, sizeof(FBColor) * 8, bpr, NO, NO, NSDeviceRGBColorSpace, (const unsigned char**)&start);
     } else {
