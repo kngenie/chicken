@@ -74,6 +74,9 @@
         [data release];
     } else {
         if (size > capacity) {
+            /* We lazy allocate the storage for our buffer because if all of the
+             * data arrives at once, we don't even need a buffer and don't go
+             * down this path. */
             capacity = size;
             if (buffer)
                 free(buffer);
