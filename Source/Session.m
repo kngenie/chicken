@@ -122,7 +122,7 @@ enum {
         [self endFullscreenScrolling];
     }
 
-    [connection setSession:nil];
+    [connection closeConnection];
     [connection release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
