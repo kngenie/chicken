@@ -23,6 +23,8 @@
 #import <Cocoa/Cocoa.h>
 #import "Profile.h"
 
+@class ServerStandAlone;
+
 @interface ListenerController : NSWindowController
 {
     IBOutlet NSTextField *portText;
@@ -52,7 +54,6 @@
 - (void)setStatus: (NSString *)str;
 - (void)closeLingering: (NSTimer *)timer;
 
-- (void)setProfilePopupToProfile: (NSString *)profileName;
-- (void)changeProfileTo:(Profile *)profile;
+- (void)listenFromCommandLineWithOptions: (ServerStandAlone *)options;
 
 @end

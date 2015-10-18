@@ -232,11 +232,7 @@ static NSString *kPrefs_LastHost_Key = @"RFBLastHost";
 	{
         if (listen) {
             ListenerController *l = [ListenerController sharedController];
-            [l showWindow:nil];
-            [l changeProfileTo:[cmdlineServer profile]];
-            if ([cmdlineServer fullscreen])
-                [l setDisplaysFullscreen:YES];
-            [l actionPressed:nil];
+            [l listenFromCommandLineWithOptions: cmdlineServer];
         } else {
             id<IServerData> server = savedServ ? savedServ : cmdlineServer;
             CommandLineConnection   *conn;

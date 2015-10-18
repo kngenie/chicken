@@ -26,6 +26,7 @@
 #import "ProfileManager.h"
 #import "RFBConnectionManager.h"
 #import "ServerFromConnection.h"
+#import "ServerStandAlone.h"
 
 // imports required for socket initialization
 #include <sys/socket.h>
@@ -168,10 +169,16 @@ NSString *kPrefs_ListenerFullscreen_Key = @"ListenerFullscreen";
     [fullscreen   setEnabled: !active];
 }
 
-- (void)setDisplaysFullscreen:(BOOL)aFullscreen
+/* Start a listening connection from the command line. The options object is not
+ * a real server, but a repository for options which have been passed to us from
+ * the command line. */
+- (void)listenFromCommandLineWithOptions: (ServerStandAlone *)options
 {
-    [fullscreen setState:aFullscreen];
+    [self showWindow:nil];
+    [self setProfilePopupToProfile:[[options profile] profileName]];
+    [fullscreen setState:[options fullscreen]];
     [self savePrefs];
+    [self actionPressed: nil];
 }
 
 #pragma mark -
@@ -449,14 +456,6 @@ NSString *kPrefs_ListenerFullscreen_Key = @"ListenerFullscreen";
 		[profilePopup selectItemWithTitle: profileName];
 	else
 		[profilePopup selectItemWithTitle: [[pm defaultProfile] profileName]];
-}
-
-
-// Changes the current listener profile and saves the selection to Preferences.
-- (void)changeProfileTo:(Profile *)profile
-{
-    [self setProfilePopupToProfile:[profile profileName]];
-    [self savePrefs];
 }
 
 
