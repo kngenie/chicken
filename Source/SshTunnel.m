@@ -125,7 +125,7 @@ static BOOL portUsed[TUNNEL_PORT_END - TUNNEL_PORT_START];
 
         if ([sshHost isEqualToString:[aServer host]])
             tunnelledHost = @"localhost";
-        tunnel = [NSString stringWithFormat:@"%d/%@/%d", localPort,
+        tunnel = [NSString stringWithFormat:@"%d:[%@]:%d", localPort,
                                                 tunnelledHost, [aServer port]];
 
         args = [[NSMutableArray alloc] init];
