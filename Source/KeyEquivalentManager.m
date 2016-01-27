@@ -210,7 +210,7 @@ NSString *kConnectionFullscreenScenario = @"ConnectionFullscreenScenario";
     
     /* For connection window and fullscreen scenarios, use only a single
      * equivalent: for entering and exiting fullscreen mode. */
-    fullscreen = [[NSApp delegate] getFullScreenMenuItem];
+    fullscreen = [(AppDelegate *)[NSApp delegate] getFullScreenMenuItem];
     entry = [[KeyEquivalentEntry alloc] initWithMenuItem:fullscreen];
     minimal = [[KeyEquivalentScenario alloc] init];
     [minimal setEntry:entry

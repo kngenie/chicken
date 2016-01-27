@@ -238,7 +238,7 @@ static NSString *kPrefs_LastHost_Key = @"RFBLastHost";
             CommandLineConnection   *conn;
 
             conn = [[CommandLineConnection alloc] initWithServer:server];
-            [[NSApp delegate] addDockConnection:conn];
+            [(AppDelegate *)[NSApp delegate] addDockConnection:conn];
             [conn release];
         }
         return YES;
