@@ -144,6 +144,11 @@
     return str;
 }
 
+- (void)resolveWithDelegate: (id <ServerDelegate>)delegate
+{
+    [delegate serverResolvedWithHost:_host port:_port];
+}
+
 - (void)setHost: (NSString*)host
 {
 	[_host autorelease];

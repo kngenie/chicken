@@ -24,9 +24,9 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "IServerData.h"
 #import "SshTunnel.h"
 
-@protocol IServerData;
 @class Profile;
 @class RFBConnection;
 @class ConnectionWaiter;
@@ -49,7 +49,7 @@
  * Note that it maintains a retain for the connecting thread. Thus, the
  * initializing object need not even maintain a pointer to the ConnectionWaiter
  * instance. */
-@interface ConnectionWaiter : NSObject {
+@interface ConnectionWaiter : NSObject <ServerDelegate> {
         // variables used for initializing RFBConnection
     id<IServerData>     server;
     NSString            *host;
@@ -73,6 +73,9 @@
 - (id)initWithServer:(id<IServerData>)aServer
     delegate:(id<ConnectionWaiterDelegate>)aDelegate window:(NSWindow *)aWind;
 - (void)dealloc;
+
+- (void)serverResolvedWithHost: (NSString *)host port: (int)port;
+- (void)serverDidNotResolve;
 
 - (id<IServerData>)server;
 - (void)setErrorStr:(NSString *)str;

@@ -51,18 +51,15 @@
 {
     if (self = [super init]) {
         server = [aServer retain];
-        host = [[server host] copy];
-        if (host == nil)
-            host = [DEFAULT_HOST retain];
-        port = [server port];
+        host = nil;
+        port = 0;
         lock = [[NSLock alloc] init];
         currentSock = -1;
         window = [aWindow retain];
 
         delegate = aDelegate;
 
-        [NSThread detachNewThreadSelector: @selector(connect:) toTarget: self
-                               withObject: nil];
+        [server resolveWithDelegate: self];
     }
     return self;
 }
@@ -75,6 +72,19 @@
     [window release];
     [errorStr release];
     [super dealloc];
+}
+
+- (void)serverResolvedWithHost: (NSString *)aHost port: (int)aPort
+{
+    host = [aHost copy];
+    port = aPort;
+    [NSThread detachNewThreadSelector: @selector(connect:) toTarget: self
+                           withObject: nil];
+}
+
+- (void)serverDidNotResolve
+{
+    [self error:@"Could not resolve" message:@""];
 }
 
 - (id<IServerData>)server

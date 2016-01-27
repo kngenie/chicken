@@ -31,8 +31,7 @@
 #endif
 {
 	NSNetService* service_;
-	bool bHasResolved;
-	bool bResloveSucceeded;
+    id<ServerDelegate> delegate_;
 }
 
 + (ServerFromRendezvous *)createWithNetService:(NSNetService*)service;

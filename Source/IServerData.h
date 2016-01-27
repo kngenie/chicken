@@ -35,6 +35,13 @@ typedef enum
 
 @class Profile;
 
+@protocol ServerDelegate
+
+- (void)serverResolvedWithHost: (NSString *)host port: (int)port;
+- (void)serverDidNotResolve;
+
+@end
+
 @protocol IServerData <NSObject>
 
 - (bool)doYouSupport: (SUPPORT_TYPE)type;
@@ -52,6 +59,7 @@ typedef enum
 - (NSString *)sshHost;
 - (in_port_t)sshPort;
 - (NSString *)sshUser;
+- (void)resolveWithDelegate: (id <ServerDelegate>)delegate;
 
 - (void)setHost: (NSString*)host;
 - (BOOL)setHostAndPort: (NSString*)host;

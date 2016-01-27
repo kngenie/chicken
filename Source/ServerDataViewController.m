@@ -139,7 +139,7 @@
 		[shared setEnabled: YES];
 		[profilePopup setEnabled: YES];
 		
-        if (port < DISPLAY_MAX) {
+        if (port >= 0 && port < DISPLAY_MAX) {
             // Low port numbers have to be encoded as host:port so they won't be
             // interpreted as display numbers
             NSString *host = [mServer host];
@@ -156,7 +156,10 @@
                     port];
         } else {
             [hostName setStringValue:[mServer host]];
-            if (port >= PORT_BASE && port < PORT_BASE + DISPLAY_MAX) {
+            if (port < 0) { // port is not yet known for Rendezvous servers
+                [display setStringValue:@" "];
+                str = @"";
+            } else if (port >= PORT_BASE && port < PORT_BASE + DISPLAY_MAX) {
                 NSString    *fmt = NSLocalizedString(@"DisplayIsPort", nil);
 
                 [display setIntValue:port - PORT_BASE];

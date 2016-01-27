@@ -44,14 +44,12 @@
 
 	if (self)
 	{
-		bHasResolved      = NO;
-		bResloveSucceeded = NO;
         [_host autorelease];
-        _host = [NSLocalizedString(@"Resolving", nil) retain];
+        NSLog(@"Name: %@", [service name]);
+        _host = [[service name] retain];
+        _port = -1;
 		
 		service_ = [service retain];
-		[service_ setDelegate:self];
-        [service_ resolveWithTimeout: 5.0];
 		
         [_name release];
         _name = [[service_ name] retain];
@@ -77,17 +75,24 @@
 			return NO;
 		case EDIT_PASSWORD:
 		case CONNECT:
-			return (bHasResolved && bResloveSucceeded);
+			return YES;
 	}
 	
     // shouldn't get here, but just in case...
 	return NO;
 }
 
+- (void)resolveWithDelegate: (id <ServerDelegate>)aDelegate
+{
+    delegate_ = aDelegate;
+    [service_ setDelegate:self];
+    [service_ resolveWithTimeout: 5.0];
+}
+
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
 {
-	bHasResolved = YES;
-	bResloveSucceeded = NO;
+    [delegate_ serverDidNotResolve];
+    delegate_ = nil;
     [_host autorelease];
 	_host = [NSLocalizedString(@"AddressResolveFailed", nil) retain];
 	
@@ -95,33 +100,33 @@
 														object:self];
 }
 
-- (void)extractAddress
+- (void)netServiceDidResolveAddress:(NSNetService *)sender
 {
     int i;
+    id<ServerDelegate> deleg = delegate_;
+
+    delegate_ = nil;
+
+    /* NSNetService resolution can produce multiple addresses, which result in
+     * multiple callbacks here. We arbitrarily decide that we're only going to
+     * look at the first one and so we have to stop further resolution. Maybe
+     * not the best thing, but better than multiple connections. */
+    [service_ stop];
     
     for (i=0;i<[[service_ addresses] count];i++) {
         struct sockaddr_in *sockAddr = (struct sockaddr_in*)[[[service_ addresses] objectAtIndex:i] bytes];
         struct in_addr sinAddr = sockAddr->sin_addr;
         if (sinAddr.s_addr != 0)
         {
-            _port = ntohs(sockAddr->sin_port);
-            [self setHost:[NSString stringWithUTF8String:inet_ntoa(sinAddr)]];
+            int      resPort = ntohs(sockAddr->sin_port);
+            NSString *resHost;
+
+            resHost = [NSString stringWithUTF8String:inet_ntoa(sinAddr)];
+            [deleg serverResolvedWithHost:resHost port: resPort];
             return;
         }
     }
-    [self setHost: NSLocalizedString( @"AddressResolveFailed", nil )];
-}
-
-- (void)netServiceDidResolveAddress:(NSNetService *)sender
-{
-	bHasResolved = YES;
-	bResloveSucceeded = YES;
-    [self extractAddress];
-	
-	[service_ stop];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:ServerChangeMsg
-														object:self];
+    [deleg serverDidNotResolve];
 }
 
 - (NSString *)keychainServiceName
