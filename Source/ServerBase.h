@@ -44,10 +44,6 @@
 - (id)init;
 - (void)dealloc;
 
-/** @name IServerData
- *  Implements the IServerData protocol
- */
-//@{
 - (bool)doYouSupport: (SUPPORT_TYPE)type;
 
 - (NSString*)name;
@@ -81,7 +77,5 @@
 - (void)setSshTunnel:(BOOL)enable;
 
 - (void)copyServer: (id<IServerData>)server;
-
-//@}
 
 @end
