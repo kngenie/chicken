@@ -47,7 +47,6 @@
 
 - (IBAction)actionPressed:(id)sender;
 - (IBAction)valueChanged:(id)sender;
-- (void)setDisplaysFullscreen:(BOOL)aFullscreen;
 
 - (BOOL)startListenerOnPort:(int)port withProfile:(Profile*)profile localOnly:(BOOL)local;
 - (void)stopListener;
