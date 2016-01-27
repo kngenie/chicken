@@ -45,7 +45,6 @@
 	if (self)
 	{
         [_host autorelease];
-        NSLog(@"Name: %@", [service name]);
         _host = [[service name] retain];
         _port = -1;
 		
